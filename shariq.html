@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulb ON/OFF</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Bulb ON/OFF Switch</h2>
+
+    <img id="bulb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaXfdgC74Qp6Nx8XAZCPJeWmRSEOCT_r9I_82rQFv3EQ&s" alt="Bulb" width="500" height="400">
+
+    <br><br>
+
+    <button onclick="toggleBulb()">Turn ON</button>
+
+    <script>let isOn = false;
+
+function toggleBulb() {
+    const bulb = document.getElementById("bulb");
+    const button = document.querySelector("button");
+ if (isOn) {
+        bulb.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSzlLbcvHYpWU5dV2r4Afdx2WfYjaODkcJXQ&s"
+        button.textContent = "Turn ON";
+    } else {
+        bulb.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLUp1ZRk_2-_hX7Xqg6ODV1lUPtkCK2YxzAA&s"
+        button.textContent = "Turn OFF";
+    }
+
+    isOn = !isOn;
+}</script>
+</body>
+</html>
+
+
