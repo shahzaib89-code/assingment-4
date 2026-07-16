@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Loop Exercises</title>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>JavaScript Loop Exercises</h1>
+
+    
+    <h2>Exercise 1 - Multiplication Table</h2>
+
+    <input type="number" id="table" placeholder="Table Number">
+    <input type="number" id="times" placeholder="Number of Times">
+    <button onclick="showTable()">Show Table</button>
+
+    <div id="tableResult" class="output"></div>
+
+    <hr>
+
+    
+    <h2>Exercise 2 - Even Numbers</h2>
+
+    <input type="number" id="evenNumber" placeholder="Enter Number">
+    <button onclick="showEven()">Show Even Numbers</button>
+
+    <div id="evenResult" class="output"></div>
+
+    <hr>
+
+   
+    <h2>Exercise 3 - Countdown</h2>
+
+    <input type="number" id="countNumber" placeholder="Enter Number">
+    <button onclick="countDown()">Start Countdown</button>
+
+    <div id="countResult" class="output"></div>
+
+    <hr>
+
+   
+    <h2>Exercise 4 - Sum of Numbers</h2>
+
+    <input type="number" id="sumNumber" placeholder="Enter Number">
+    <button onclick="findSum()">Calculate Sum</button>
+
+    <div id="sumResult" class="output"></div>
+
+    <hr>
+
+    <h2>Exercise 5 - Number Pattern</h2>
+
+    <input type="number" id="patternNumber" placeholder="Enter Number">
+    <button onclick="showPattern()">Show Pattern</button>
+
+    <div id="patternResult" class="output"></div>
+
+</div>
+
+<script>// Exercise 1
+function showTable(){
+
+    let table = Number(document.getElementById("table").value);
+    let times = Number(document.getElementById("times").value);
+
+    let output = "";
+
+    for(let i=1; i<=times; i++){
+        output += table + " × " + i + " = " + (table*i) + "<br>";
+    }
+
+    document.getElementById("tableResult").innerHTML = output;
+}
+
+
+// Exercise 2
+function showEven(){
+
+    let num = Number(document.getElementById("evenNumber").value);
+
+    let output = "";
+
+    for(let i=1; i<=num; i++){
+
+        if(i % 2 === 0){
+            output += i + "<br>";
+        }
+
+    }
+
+    document.getElementById("evenResult").innerHTML = output;
+}
+
+
+// Exercise 3
+function countDown(){
+
+    let num = Number(document.getElementById("countNumber").value);
+
+    let output = "";
+
+    for(let i=num; i>=1; i--){
+        output += i + "<br>";
+    }
+
+    document.getElementById("countResult").innerHTML = output;
+}
+
+
+// Exercise 4
+function findSum(){
+
+    let num = Number(document.getElementById("sumNumber").value);
+
+    let sum = 0;
+
+    for(let i=1; i<=num; i++){
+        sum += i;
+    }
+
+    document.getElementById("sumResult").innerHTML =
+    "<b>Sum = " + sum + "</b>";
+}
+
+
+// Exercise 5
+function showPattern(){
+
+    let num = Number(document.getElementById("patternNumber").value);
+
+    let output = "";
+
+    for(let i=1; i<=num; i++){
+
+        for(let j=1; j<=i; j++){
+            output += j;
+        }
+
+        output += "<br>";
+    }
+
+    document.getElementById("patternResult").innerHTML = output;
+}</script>
+
+</body>
+</html>

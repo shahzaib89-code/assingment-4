@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bio Formatter</title>
+  
+</head>
+<body>
+
+    <div class="container">
+        <h2>Student Bio Formatter</h2>
+
+        <label>Student Full Name</label>
+        <input type="text" id="name" placeholder="Enter full name">
+
+        <label>City</label>
+        <input type="text" id="city" placeholder="Enter city">
+
+        <label>Short Introduction</label>
+        <textarea id="intro" rows="5" placeholder="Enter introduction"></textarea>
+
+        <button onclick="formatInfo()">Format Information</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>function formatInfo() {
+
+
+    let name = document.getElementById("name").value;
+    let city = document.getElementById("city").value;
+    let intro = document.getElementById("intro").value;
+
+ 
+    let cleanName = name.trim();
+
+
+    let nameLength = cleanName.length;
+
+
+    let firstSpace = cleanName.indexOf(" ");
+    let firstName;
+
+    if (firstSpace === -1) {
+        firstName = cleanName;
+    } else {
+        firstName = cleanName.slice(0, firstSpace);
+    }
+
+   
+    let upperName = cleanName.toUpperCase();
+
+    
+    let lowerCity = city.toLowerCase();
+
+
+    let updatedIntro = intro.replaceAll("student", "developer");
+
+   
+    let first20 = updatedIntro.substring(0, 20);
+
+    
+    document.getElementById("output").innerHTML = `
+        <h3>Output</h3>
+
+        <p><strong>Clean Name:</strong> ${cleanName}</p>
+
+        <p><strong>Name Length:</strong> ${nameLength}</p>
+
+        <p><strong>First Name:</strong> ${firstName}</p>
+
+        <p><strong>Uppercase Name:</strong> ${upperName}</p>
+
+        <p><strong>City:</strong> ${lowerCity}</p>
+
+        <p><strong>Updated Introduction:</strong> ${updatedIntro}</p>
+
+        <p><strong>First 20 Characters:</strong> ${first20}</p>
+    `;
+}</script>
+</body>
+</html>

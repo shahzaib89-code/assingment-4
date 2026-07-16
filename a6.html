@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Shopping List</h2>
+
+    <input type="text" id="itemInput" placeholder="Enter new item">
+    <button onclick="addItem()">Add Item</button>
+
+    <div id="list"></div>
+
+    <h3 id="total"></h3>
+</div>
+
+<script>
+let shoppingList = ["Milk", "Bread", "Eggs", "Rice", "Sugar"];
+
+
+function showList() {
+
+    let output = "<ul>";
+
+    for (let i = 0; i < shoppingList.length; i++) {
+        output += "<li>" + shoppingList[i] + "</li>";
+    }
+
+    output += "</ul>";
+
+    document.getElementById("list").innerHTML = output;
+
+    document.getElementById("total").innerHTML =
+        "Total Items: " + shoppingList.length;
+}
+
+function addItem() {
+
+    let newItem = document.getElementById("itemInput").value.trim();
+
+    if (newItem !== "") {
+
+        shoppingList.push(newItem);
+
+        showList();
+
+        document.getElementById("itemInput").value = "";
+    }
+}
+
+
+showList();</script>
+
+</body>
+</html>

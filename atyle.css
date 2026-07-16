@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", Arial, sans-serif;
+    background: #0f172a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Each assignment box */
+div {
+    margin: 12px;
+}
+
+
+/* Assignment links */
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 280px;
+    height: 55px;
+
+    background: #1e293b;
+    color: #38bdf8;
+
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+
+    border: 2px solid #38bdf8;
+    border-radius: 30px;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 0 10px rgba(56,189,248,0.3);
+}
+
+
+/* Hover animation */
+a:hover {
+    background: #38bdf8;
+    color: #0f172a;
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 15px #38bdf8,
+        0 0 30px #38bdf8;
+}
+
+
+/* Click effect */
+a:active {
+    transform: scale(0.95);
+}
