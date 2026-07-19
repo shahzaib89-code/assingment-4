@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bike Collection</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🏍️ Bike Collection</h1>
+
+<div class="form">
+    <input type="text" id="brand" placeholder="Brand">
+    <input type="text" id="model" placeholder="Model">
+    <input type="text" id="price" placeholder="Price">
+    <input type="text" id="color" placeholder="Color">
+    <input type="text" id="image" placeholder="Image URL">
+    <button id="addBike">Add Bike</button>
+</div>
+
+<div id="bikeContainer"></div>
+
+<script>const bikes = [
+{
+    brand: "Yamaha",
+    model: "R1",
+    price: "$18,000",
+    color: "Blue",
+    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600"
+},
+{
+    brand: "Honda",
+    model: "CBR600RR",
+    price: "$12,500",
+    color: "Red",
+    image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600"
+},
+{
+    brand: "Kawasaki",
+    model: "Ninja ZX-10R",
+    price: "$17,500",
+    color: "Green",
+    image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600"
+}
+];
+
+const container = document.getElementById("bikeContainer");
+
+function displayBikes() {
+
+    container.innerHTML = "";
+
+    bikes.forEach(bike => {
+
+        container.innerHTML += `
+        <div class="card">
+            <img src="${bike.image}" alt="${bike.model}">
+            <div class="info">
+                <h2>${bike.brand}</h2>
+                <p><strong>Model:</strong> ${bike.model}</p>
+                <p><strong>Price:</strong> ${bike.price}</p>
+                <p><strong>Color:</strong> ${bike.color}</p>
+            </div>
+        </div>
+        `;
+
+    });
+
+}
+
+displayBikes();
+
+document.getElementById("addBike").addEventListener("click", () => {
+
+    const newBike = {
+        brand: document.getElementById("brand").value,
+        model: document.getElementById("model").value,
+        price: document.getElementById("price").value,
+        color: document.getElementById("color").value,
+        image: document.getElementById("image").value
+    };
+
+    bikes.push(newBike);
+
+    displayBikes();
+
+    document.querySelectorAll(".form input").forEach(input => input.value = "");
+
+});</script>
+</body>
+</html>
