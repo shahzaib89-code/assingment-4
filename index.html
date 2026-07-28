@@ -1,0 +1,251 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Practice Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0f14;
+    --panel: #11161d;
+    --border: #1e2733;
+    --border-soft: #182029;
+    --text: #d7dee6;
+    --muted: #5c6b7a;
+    --amber: #e3ad6d;
+    --amber-dim: #7a5a34;
+    --mint: #7fe0b3;
+    --mint-dim: #3a5f4c;
+    --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0) 0 0/22px 22px,
+      var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+
+  .terminal{
+    width: 100%;
+    max-width: 640px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+
+  .titlebar{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: linear-gradient(#161d26, #131922);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dots{ display: flex; gap: 7px; }
+  .dots span{
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #3a4451;
+  }
+  .dots span:nth-child(1){ background: #6b4a48; }
+  .dots span:nth-child(2){ background: #6b5c40; }
+  .dots span:nth-child(3){ background: #3f5c48; }
+
+  .titlebar .path{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .titlebar .path b{ color: var(--text); font-weight: 500; }
+
+  .body-inner{ padding: 10px 6px 18px; }
+
+  .header-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 20px 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header-row .count{ color: var(--mint); }
+
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li{ border-top: 1px solid var(--border-soft); }
+  li:first-child{ border-top: none; }
+
+  a{
+    position: relative;
+    display: grid;
+    grid-template-columns: 34px 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background-color 0.18s ease, padding-left 0.18s ease;
+  }
+
+  a::before{
+    content: "$";
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--mint);
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  a:hover, a:focus-visible{
+    background: rgba(127, 224, 179, 0.045);
+    padding-left: 28px;
+  }
+
+  a:hover::before, a:focus-visible::before{ opacity: 1; }
+
+  .num{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--amber-dim);
+    transition: color 0.18s ease;
+  }
+
+  a:hover .num, a:focus-visible .num{ color: var(--amber); }
+
+  .label{
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .label::after{
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 13px;
+    margin-left: 3px;
+    background: var(--mint);
+    vertical-align: -2px;
+    opacity: 0;
+  }
+
+  a:hover .label::after, a:focus-visible .label::after{
+    opacity: 1;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink{ 50% { opacity: 0; } }
+
+  .status{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    opacity: 0.7;
+  }
+
+  .underline{
+    display: none;
+  }
+
+  a svg.underline{
+    display: block;
+    grid-column: 1 / -1;
+  }
+
+  /* underline sits under the label as a hand-marked check-off stroke */
+  a{ grid-template-rows: auto auto; }
+  a svg.underline{
+    width: 100%;
+    height: 8px;
+    margin-top: -4px;
+    overflow: visible;
+  }
+  a svg.underline path{
+    fill: none;
+    stroke: var(--mint);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    transition: stroke-dashoffset 0.5s ease;
+  }
+  a:hover svg.underline path, a:focus-visible svg.underline path{
+    stroke-dashoffset: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    a, a::before, .num, .label::after, a svg.underline path{
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  @media (max-width: 480px){
+    a{ padding: 12px 16px; grid-template-columns: 28px 1fr; }
+    a:hover, a:focus-visible{ padding-left: 20px; }
+    .status{ display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="terminal">
+    <div class="titlebar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="path">~/<b>practice-log</b>.js</div>
+    </div>
+    <div class="body-inner">
+      <div class="header-row"><span>exercises</span><span class="count">12 logged</span></div>
+      <ul>
+        <li><a href="a1.html"><span class="num">01</span><span class="label">Variable and operators</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 Q 60 1, 120 5 T 240 4 T 298 6"/></svg></a></li>
+        <li><a href="a2.html"><span class="num">02</span><span class="label">Boolean exercises</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+        <li><a href="a3.html"><span class="num">03</span><span class="label">Boolean operators</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 Q 60 1, 120 5 T 240 4 T 298 6"/></svg></a></li>
+        <li><a href="shariq.html"><span class="num">04</span><span class="label">Function exercise</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+        <li><a href="a5.html"><span class="num">05</span><span class="label">Loops and functions</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 Q 60 1, 120 5 T 240 4 T 298 6"/></svg></a></li>
+        <li><a href="a6.html"><span class="num">06</span><span class="label">Shopping list</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+        <li><a href="arrayMethods.html"><span class="num">07</span><span class="label">Array methods</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 Q 60 1, 120 5 T 240 4 T 298 6"/></svg></a></li>
+        <li><a href="a8.html"><span class="num">08</span><span class="label">Future event countdown</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+        <li><a href="a9.html"><span class="num">09</span><span class="label">Duration calculator</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 Q 60 1, 120 5 T 240 4 T 298 6"/></svg></a></li>
+        <li><a href="latestassignment.html"><span class="num">10</span><span class="label">Student bio formatter</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+        <li><a href="a11.html"><span class="num">11</span><span class="label">Bike garage</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 Q 60 1, 120 5 T 240 4 T 298 6"/></svg></a></li>
+        <li><a href="a12.html"><span class="num">12</span><span class="label">Ecommerce store</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+        <li><a href="a13.html"><span class="num">13</span><span class="label">Dice game</span><span class="status">reviewed</span><svg class="underline" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 6 Q 60 2, 120 6 T 240 5 T 298 7"/></svg></a></li>
+      </ul>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
